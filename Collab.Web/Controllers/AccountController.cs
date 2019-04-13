@@ -22,7 +22,7 @@ namespace Collab.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAccountById(int id)
         {
-            var applicationUser = await _applicationUserService.GetApplicationUserByIdAync(id);
+            var applicationUser = await _applicationUserService.GetApplicationUserByIdAsync(id);
 
             if (applicationUser == null)
             {

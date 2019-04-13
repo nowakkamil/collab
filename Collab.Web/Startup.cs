@@ -33,6 +33,7 @@ namespace Collab.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            // A lifetime of a service registered as 'Scoped' is equal to each web request
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
             // In production, the React files will be served from this directory

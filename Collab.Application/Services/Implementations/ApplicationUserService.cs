@@ -20,7 +20,7 @@ namespace Collab.Application.Services.Implementations
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<ApplicationUserDto> GetApplicationUserByIdAync(int id)
+        public async Task<ApplicationUserDto> GetApplicationUserByIdAsync(int id)
         {
             var applicationUser = await _dbContext.ApplicationUsers
                 .FirstOrDefaultAsync(x => x.Id == id.ToString());
