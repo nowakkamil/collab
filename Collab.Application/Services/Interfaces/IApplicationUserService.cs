@@ -8,6 +8,6 @@ namespace Collab.Application.Services
 {
     public interface IApplicationUserService
     {
-        Task<ApplicationUserDto> GetApplicationUserByIdAync(int id);
+        Task<ApplicationUserDto> GetApplicationUserByIdAsync(int id);
     }
 }
