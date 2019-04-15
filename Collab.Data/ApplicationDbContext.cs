@@ -15,5 +15,7 @@ namespace Collab.Data
         { }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Hashtag> Hashtags { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using AutoMapper;
 using Collab.Application.Profiles;
 using Collab.Application.Services;
 using Collab.Application.Services.Implementations;
+using Collab.Application.Services.Interfaces;
 using Collab.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,10 +31,14 @@ namespace Collab.Web
                 options.UseSqlServer(Configuration.GetConnectionString("Collab")
             ));
             services.AddAutoMapper(typeof(ApplicationUserProfile).GetTypeInfo().Assembly);
+            services.AddAutoMapper(typeof(MessageProfile).GetTypeInfo().Assembly);
+            services.AddAutoMapper(typeof(HashtagProfile).GetTypeInfo().Assembly);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IHashtagService, HashtagService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
