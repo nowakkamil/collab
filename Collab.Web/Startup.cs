@@ -43,9 +43,9 @@ namespace Collab.Web
             services.AddAutoMapper();
 
             // ASP.NET Core Identity Configuration
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
 
             // A lifetime of a service registered as 'Scoped' is equal to each web request
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
