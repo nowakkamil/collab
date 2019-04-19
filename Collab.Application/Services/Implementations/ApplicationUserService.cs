@@ -39,8 +39,14 @@ namespace Collab.Application.Services.Implementations
         public async Task<ApplicationUser> GetApplicationUserByIdAsync(int userId)
         {
             var applicationUser = await _userManager.FindByIdAsync(userId.ToString());
+
+            if (applicationUser == null)
+            {
+                return null;
+            }
+
             applicationUser.Articles = await _dbContext.Articles
-                .Where(a => a.ApplicationUser.Id == userId.ToString())
+                .Where(a => a.ApplicationUser.Id == userId)
                 .ToListAsync();
 
             return applicationUser;
