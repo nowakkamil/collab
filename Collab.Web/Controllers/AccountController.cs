@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Collab.Application.Dtos;
-using Collab.Application.Services;
+using Collab.Application.Services.Interfaces;
 using Collab.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Collab.Web.Controllers
 {

@@ -1,7 +1,7 @@
 using AutoMapper;
 using Collab.Application.Profiles;
-using Collab.Application.Services;
 using Collab.Application.Services.Implementations;
+using Collab.Application.Services.Interfaces;
 using Collab.Data;
 using Collab.Data.Entities;
 using Microsoft.AspNetCore.Builder;

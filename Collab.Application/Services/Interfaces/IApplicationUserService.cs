@@ -1,11 +1,8 @@
 ﻿using Collab.Data.Entities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Collab.Application.Services
+namespace Collab.Application.Services.Interfaces
 {
     public interface IApplicationUserService
     {

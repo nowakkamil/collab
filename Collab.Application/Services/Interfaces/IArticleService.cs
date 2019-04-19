@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Collab.Application.Services
+namespace Collab.Application.Services.Interfaces
 {
     public interface IArticleService
     {
