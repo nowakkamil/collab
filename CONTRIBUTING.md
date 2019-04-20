@@ -123,7 +123,7 @@ namespace Collab.Web.Controllers
 1. File is **formatted** using built-in functionality (<kbd>Ctrl</kbd> + <kbd>K</kbd> + <kbd>D</kbd> in Visual Studio 2017).
 2. **Using** statements are **organized** (<kbd>Ctrl</kbd> + <kbd>R</kbd> + <kbd>G</kbd> in Visual Studio 2017).
 3. There are **no two consecutive blank lines** and there isn't any void space after an opening brace and before the closing one.
-4. **Blank lines are introduced only for the sake of brevity**. They are placed inside a method and a single one suggests that a different operation will be taking place. Furthermore, a statement with AutoMapper doesn't require surrounding void space since it only reduces boilerplate code.
+4. **Blank lines are introduced only for the sake of clarity**. They are placed inside a method and a single one suggests that a different operation will be taking place. Furthermore, a statement with AutoMapper doesn't require surrounding void space since it only reduces boilerplate code.
 5. Methods are arranged in **CRUD order**. Moreover, within the given operation, they are filed in terms of their specificity - first with one parameter, second with two, etc. (*except for the last one which is parameterless*).
 6. The line length should, ideally, be less than **80 characters** (circa 100 characters is acceptable). If necessary, line break should be introduced.
 7. Absence of **trailing whitespaces** (display all whitespace characters with this combination: <kbd>Ctrl</kbd> + <kbd>R</kbd> + <kbd>W</kbd> in Visual Studio 2017).
