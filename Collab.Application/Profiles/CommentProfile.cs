@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using Collab.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Collab.Application.Dto;
 using Collab.Application.Dtos;
+using Collab.Data.Entities;
 
 namespace Collab.Application.Profiles
 {
@@ -12,8 +8,8 @@ namespace Collab.Application.Profiles
     {
         public CommentProfile()
         {
-            CreateMap<CommentProfile, CommentDto>();
-            CreateMap<CommentDto, CommentProfile>();
+            CreateMap<Comment, CommentDto>()
+            .ReverseMap();
         }
     }
 }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Collab.Data.Entities
-{ 
-    
+{    
  public class Comment
  {
       public string Content { get; set; }

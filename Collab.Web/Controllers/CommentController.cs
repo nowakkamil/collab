@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Collab.Application.Dtos;
 using Collab.Application.Services.Interfaces;
+using Collab.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Collab.Web.Controllers
 {
     public class CommentController : Controller
     {
-
         private readonly ICommentService _commentService;
 
         public CommentController(ICommentService commentService)
@@ -19,14 +19,11 @@ namespace Collab.Web.Controllers
                 throw new ArgumentNullException(nameof(commentService));
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> CreateCommentById(CommentDto commentDto)
+        public async Task<IActionResult> CreateCommentById(Comment comment)
         {
-            var comment = await _commentService.CreateCommentAsync(commentDto);
 
-            if (comment == null)
-                return NotFound();
+           await _commentService.CreateCommentAsync(comment);         
 
             return Ok(comment);
         }
@@ -52,7 +49,6 @@ namespace Collab.Web.Controllers
                 return NotFound();
             }
                 
-
             return Ok(comment);
         }
     }
