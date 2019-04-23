@@ -2,6 +2,7 @@ using AutoMapper;
 using Collab.Application.Profiles;
 using Collab.Application.Services;
 using Collab.Application.Services.Implementations;
+using Collab.Application.Services.Interfaces;
 using Collab.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,7 @@ namespace Collab.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
