@@ -48,7 +48,10 @@ namespace Collab.Web.Controllers
             var comment = await _commentService.EditCommentAsync(commentDto);
 
             if (comment == null)
+            {
                 return NotFound();
+            }
+                
 
             return Ok(comment);
         }

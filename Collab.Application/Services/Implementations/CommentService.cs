@@ -42,13 +42,18 @@ namespace Collab.Application.Services.Implementations
         public async Task<CommentDto> DeleteCommentByIdAsync(int? id)
         {
 
-            if (id == null)            
-            return null;
-
+            if (id == null)
+            {
+                return null;
+            }
+          
             var comment = await _dbContext.Comments.FindAsync(id);
                 
-            if (comment == null)           
-            return null;
+            if (comment == null)
+            {
+                return null;
+            }
+          
             
 
             _dbContext.Remove(comment);
@@ -60,16 +65,17 @@ namespace Collab.Application.Services.Implementations
         }
 
         public async Task<Comment> EditCommentAsync(CommentDto commentDto)
-
         {
 
            var project = _mapper.Map<Comment>(commentDto);
 
            _dbContext.Update(commentDto);
 
-            if (await _dbContext.SaveChangesAsync() > 0)         
-            return project;
-            
+            if (await _dbContext.SaveChangesAsync() > 0)
+            {
+                return project;
+            }
+                       
             return null;
 
         }
