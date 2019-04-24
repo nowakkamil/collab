@@ -1,23 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Collab.Application.Dtos;
 using Collab.Application.Services.Interfaces;
-using Collab.Data;
 using Collab.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Collab.Web.Controllers
 {
     public class ProjectController : Controller
     {
         private readonly IProjectService _projectService;
+        private readonly IMapper _mapper;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService, IMapper mapper)
         {
             _projectService = projectService ??
                 throw new ArgumentNullException(nameof(projectService));
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProject(ProjectDto projectDto)
+        {
+            var project = _mapper.Map<Project>(projectDto);
+            project = await _projectService.CreateProjectAsync(project);
+
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            projectDto = _mapper.Map<ProjectDto>(project);
+            return Ok(projectDto);
         }
 
         [HttpGet("{id}")]
@@ -30,52 +47,50 @@ namespace Collab.Web.Controllers
                 return NotFound();
             }
 
-            return Ok(project);
+            var projectDto = _mapper.Map<ProjectDto>(project);
+            return Ok(projectDto);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateProject(ProjectDto projectDto)
+        [HttpGet]
+        public async Task<IActionResult> GetAllProjects()
         {
+            var projects = await _projectService.GetAllProjectsAsync();
+
+            if (projects == null)
             {
-                var project = await _projectService.CreateProjectAsync(projectDto);
-
-                if (project == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(project);
+                return NotFound();
             }
+
+            var projectDtos = _mapper.Map<List<ProjectDto>>(projects);
+            return Ok(projectDtos);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProjectById(int id)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProject(int id, [FromBody]ProjectDto projectDto)
         {
-            var project = await _projectService.DeleteProjectByIdAsync(id);
+            var project = await _projectService
+                .UpdateProjectAsync(_mapper.Map<Project>(projectDto));
 
             if (project == null)
             {
                 return NotFound();
             }
 
+            projectDto = _mapper.Map<ProjectDto>(project);
             return Ok(project);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EditProject(ProjectDto projectDto)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProjectById(int id)
         {
+            var result = await _projectService.DeleteProjectByIdAsync(id);
+
+            if (!result)
             {
-                var project = await _projectService.EditProjectAsync(projectDto);
-
-                if (project == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(project);
+                return BadRequest();
             }
+
+            return Ok();
         }
-
-
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Collab.Data.Entities
+﻿namespace Collab.Data.Entities
 {
     public class Project
     {
@@ -10,6 +6,5 @@ namespace Collab.Data.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-
     }
 }

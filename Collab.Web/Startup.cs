@@ -30,7 +30,7 @@ namespace Collab.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Collab")
             ));
-            services.AddAutoMapper(typeof(ApplicationUserProfile).GetTypeInfo().Assembly);
+           services.AddAutoMapper(typeof(ApplicationUserProfile).GetTypeInfo().Assembly);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
