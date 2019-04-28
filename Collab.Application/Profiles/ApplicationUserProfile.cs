@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using Collab.Application.Dto;
+﻿using AutoMapper;
+using Collab.Application.Dtos;
 using Collab.Data.Entities;
 
 namespace Collab.Application.Profiles
@@ -11,8 +8,8 @@ namespace Collab.Application.Profiles
     {
         public ApplicationUserProfile()
         {
-            CreateMap<ApplicationUser, ApplicationUserDto>();
-            CreateMap<ApplicationUserDto, ApplicationUser>();
+            CreateMap<ApplicationUser, ApplicationUserDto>()
+                .ReverseMap();
         }
     }
 }

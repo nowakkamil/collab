@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Collab.Application.Services;
+﻿using AutoMapper;
+using Collab.Application.Dtos;
+using Collab.Application.Services.Interfaces;
+using Collab.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Collab.Web.Controllers
 {
@@ -12,11 +13,31 @@ namespace Collab.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IApplicationUserService _applicationUserService;
+        private readonly IMapper _mapper;
 
-        public AccountController(IApplicationUserService applicationUserService)
+        public AccountController(IApplicationUserService applicationUserService, IMapper mapper)
         {
             _applicationUserService = applicationUserService ??
                 throw new ArgumentNullException(nameof(applicationUserService));
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAccount([FromBody]ApplicationUserDto applicationUserDto)
+        {
+            var applicationUser = _mapper.Map<ApplicationUser>(applicationUserDto);
+
+            var identityResult = await _applicationUserService
+                .CreateApplicationUserAsync(applicationUser, applicationUserDto.Password);
+
+            if (!identityResult.Succeeded)
+            {
+                return BadRequest();
+            }
+
+            applicationUserDto = _mapper.Map<ApplicationUserDto>(applicationUser);
+            return StatusCode(StatusCodes.Status201Created, applicationUserDto);
         }
 
         [HttpGet("{id}")]
@@ -29,7 +50,8 @@ namespace Collab.Web.Controllers
                 return NotFound();
             }
 
-            return Ok(applicationUser);
+            var applicationUserDto = _mapper.Map<ApplicationUserDto>(applicationUser);
+            return Ok(applicationUserDto);
         }
     }
 }

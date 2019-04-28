@@ -1,17 +1,18 @@
 using AutoMapper;
 using Collab.Application.Profiles;
-using Collab.Application.Services;
 using Collab.Application.Services.Implementations;
 using Collab.Application.Services.Interfaces;
 using Collab.Data;
+using Collab.Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+using System;
 
 namespace Collab.Web
 {
@@ -30,12 +31,26 @@ namespace Collab.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Collab")
             ));
-           services.AddAutoMapper(typeof(ApplicationUserProfile).GetTypeInfo().Assembly);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            // AutoMapper Configuration
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<ApplicationUserProfile>();
+                cfg.AddProfile<ArticleProfile>();
+            });
+            services.AddAutoMapper();
+
+            // ASP.NET Core Identity Configuration
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
+
+            // A lifetime of a service registered as 'Scoped' is equal to each web request
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IArticleService, ArticleService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -45,7 +60,7 @@ namespace Collab.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -75,6 +90,11 @@ namespace Collab.Web
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            // Asynchronously ensure that the database for the context exists.
+            // If it exists, no action is taken.
+            // If it does not exist then the database and all its schema are created.
+            serviceProvider.GetService<ApplicationDbContext>().Database.EnsureCreated();
         }
     }
 }

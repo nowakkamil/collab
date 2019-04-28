@@ -1,10 +1,13 @@
-﻿using Collab.Application.Dto;
+﻿using Collab.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace Collab.Application.Services
+namespace Collab.Application.Services.Interfaces
 {
     public interface IApplicationUserService
     {
-        Task<ApplicationUserDto> GetApplicationUserByIdAsync(int id);
+        Task<IdentityResult> CreateApplicationUserAsync(ApplicationUser applicationUser, string password);
+        Task<ApplicationUser> GetApplicationUserByIdAsync(int id);
+        Task<ApplicationUser> GetApplicationUserByEmailAsync(string email);
     }
 }
