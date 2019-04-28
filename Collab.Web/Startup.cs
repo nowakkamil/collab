@@ -39,6 +39,8 @@ namespace Collab.Web
             {
                 cfg.AddProfile<ApplicationUserProfile>();
                 cfg.AddProfile<ArticleProfile>();
+                cfg.AddProfile<HashtagProfile>();
+                cfg.AddProfile<MessageProfile>();
             });
             services.AddAutoMapper();
 
@@ -50,6 +52,8 @@ namespace Collab.Web
             // A lifetime of a service registered as 'Scoped' is equal to each web request
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IHashtagService, HashtagService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
