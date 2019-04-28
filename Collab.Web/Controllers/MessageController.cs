@@ -59,7 +59,6 @@ namespace Collab.Web.Controllers
 
             messageDto = _mapper.Map<MessageDto>(message);
             return Ok(messageDto);
-
         }
 
         [HttpGet("{id}")]
