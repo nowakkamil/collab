@@ -40,9 +40,9 @@ namespace Collab.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditComment(CommentDto commentDto)
+        public async Task<IActionResult> EditComment(Comment comment)
         {
-            var comment = await _commentService.EditCommentAsync(commentDto);
+            await _commentService.EditCommentAsync(comment);
 
             if (comment == null)
             {

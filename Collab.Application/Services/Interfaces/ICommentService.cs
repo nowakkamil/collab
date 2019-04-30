@@ -7,8 +7,8 @@ namespace Collab.Application.Services.Interfaces
     public interface ICommentService
     {
         Task<Comment> CreateCommentAsync(Comment comment);
-        Task<CommentDto> DeleteCommentByIdAsync(int id);
-        Task<Comment> EditCommentAsync(CommentDto projectDto);
+        Task<Comment> DeleteCommentByIdAsync(int id);
+        Task<Comment> EditCommentAsync(Comment comment);
     }
 }
 

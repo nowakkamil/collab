@@ -32,7 +32,7 @@ namespace Collab.Application.Services.Implementations
             return null;
         }
 
-        public async Task<CommentDto> DeleteCommentByIdAsync(int id)
+        public async Task<Comment> DeleteCommentByIdAsync(int id)
         {
             if (id == null)
             {
@@ -49,18 +49,18 @@ namespace Collab.Application.Services.Implementations
             _dbContext.Remove(comment);
 
             await _dbContext.SaveChangesAsync();
-            return _mapper.Map<CommentDto>(comment);
+            return comment;
         }
 
-        public async Task<Comment> EditCommentAsync(CommentDto commentDto)
+        public async Task<Comment> EditCommentAsync(Comment comment)
         {
 
-            var project = _mapper.Map<Comment>(commentDto);
-            _dbContext.Update(commentDto);
+            
+            _dbContext.Update(comment);
 
             if (await _dbContext.SaveChangesAsync() > 0)
             {
-                return project;
+                return comment;
             }
 
             return null;
