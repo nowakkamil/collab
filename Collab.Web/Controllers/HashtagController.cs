@@ -66,7 +66,7 @@ namespace Collab.Web.Controllers
             return Ok(hashtagDto);
         }
 
-        [HttpGet("{name:string}")]
+        [HttpGet("{name}")]
         public async Task<IActionResult> GetHashtagByName(string name)
         {
             var hashtag = await _hashtagService.GetHashtagByNameAsync(name);
@@ -106,7 +106,7 @@ namespace Collab.Web.Controllers
             return Ok();
         }
 
-        [HttpDelete("{name:string}")]
+        [HttpDelete("{name}")]
         public async Task<IActionResult> DeleteHashtagByName(string name)
         {
             var result = await _hashtagService.DeleteHashtagByNameAsync(name);
