@@ -51,6 +51,7 @@ namespace Collab.Web
 
             // A lifetime of a service registered as 'Scoped' is equal to each web request
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IHashtagService, HashtagService>();
             services.AddScoped<IMessageService, MessageService>();

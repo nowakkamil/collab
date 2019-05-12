@@ -13,6 +13,7 @@ namespace Collab.Data
             : base(options) { }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Hashtag> Hashtags { get; set; }
         public DbSet<Message> Messages { get; set; }
