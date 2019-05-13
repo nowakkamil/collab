@@ -50,6 +50,7 @@ namespace Collab.Web
             // A lifetime of a service registered as 'Scoped' is equal to each web request
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
